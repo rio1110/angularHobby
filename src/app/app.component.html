@@ -1,3 +1,11 @@
 <h1>{{title}}</h1>
-<app-heroes></app-heroes>
+
+<!-- ナビゲーション -->
+<nav>
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/heroes">Heroes</a>
+</nav>
+<!-- ルーティングするためのタグ。これがないとアドレスとのルーティングがされない。 -->
+<router-outlet></router-outlet>
+<!-- 別フォルダに切り出したディレクトリとのマッピングする -->
 <app-messages></app-messages>

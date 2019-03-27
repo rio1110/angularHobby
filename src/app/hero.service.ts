@@ -11,7 +11,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class HeroService {
 
-  private heroesUrl = 'api/heroes';  // URL to web api
+  // private heroesUrl = 'api/heroes';  // URL to web api
+  private heroesUrl = 'http://localhost:8080';  // <=自作サーバへアクセス
 
   constructor(
     private http: HttpClient,
@@ -33,8 +34,8 @@ export class HeroService {
     // this.messageService.add(`HeroService: fetched hero id=${id}`);
     // return of(HEROES.find(hero => hero.id === id));
 
-    const url = '${this.heroesUrl}/${id}';
-
+    // const url = '${this.heroesUrl}/${id}';
+    const url = this.heroesUrl + '/' + id;
     // あるヒーロのIDに紐付い情報を取得する
 /** GET hero by id. Will 404 if id not found */
 
@@ -88,7 +89,9 @@ export class HeroService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+    return this.http
+      // .get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+　    .get<Hero[]>(`http://localhost:8080/app/heroes/?name=${term}`).pipe(
       tap(_ => this.log(`found heroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
